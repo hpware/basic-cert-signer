@@ -1,0 +1,14 @@
+type: workspace
+model: workspace
+id: wk_XC848QbnVv
+createdAt: 2025-12-25T14:56:43.039211
+updatedAt: 2025-12-25T14:56:43.039214
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: cert-signer
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
