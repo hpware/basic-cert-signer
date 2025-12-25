@@ -1,0 +1,39 @@
+type: http_request
+model: http_request
+id: rq_3MdwWasYUw
+createdAt: 2025-12-25T16:13:26.398913
+updatedAt: 2025-12-25T16:16:49.196434
+workspaceId: wk_XC848QbnVv
+folderId: null
+authentication: {}
+authenticationType: null
+body:
+  form:
+  - enabled: true
+    id: pKFIJfe9yb
+    name: mode
+    value: submitCSR
+  - enabled: true
+    file: /Users/howard/code_base/cert_signer/certs/slave.csr
+    id: nfE66hcErE
+    name: CSR
+  - enabled: true
+    id: W7wKWuZFri
+    name: Days
+    value: '7260'
+  - enabled: true
+    id: UAMX27HGAE
+    name: ''
+    value: ''
+bodyType: multipart/form-data
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: multipart/form-data
+  id: MdhGnwnDnK
+method: POST
+name: ''
+sortPriority: -1766674604658.0
+url: http://localhost:3000/api/certs/generate
+urlParameters: []
