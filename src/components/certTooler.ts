@@ -6,7 +6,7 @@ const execAsync = promisify(exec);
 const spawnWithInput = (
   cmd: string,
   args: string[],
-  input: string,
+  input: string
 ): Promise<{ stdout: string; stderr: string }> => {
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, args);
@@ -36,7 +36,7 @@ export async function generateCSR(
   organization: string,
   locality: string,
   state: string,
-  country: string,
+  country: string
 ) {
   try {
     const { stdout: getPrivateKey } = await execAsync(`openssl genrsa 2048`);
@@ -51,7 +51,7 @@ export async function generateCSR(
     const csr = await spawnWithInput(
       "openssl",
       ["req", "-new", "-key", privateKeySavePath, "-subj", subj],
-      privateKeySavePath,
+      privateKeySavePath
     );
     return { csr: csr.stdout, privateKey: privateKeySavePath };
   } catch (e) {
@@ -63,7 +63,7 @@ export async function generateCSR(
 export async function generateCertificate(
   csrText: string,
   generateDays: number,
-  saveUUID: string = crypto.randomUUID(),
+  saveUUID: string = crypto.randomUUID()
 ) {
   try {
     const termGenerate = await spawnWithInput(
@@ -74,15 +74,15 @@ export async function generateCertificate(
         "-in",
         "-",
         "-CA",
-        "./certs/slave.pub.pem",
+        "./certs/master.pub.pem",
         "-CAkey",
-        "./certs/slave.key.pem",
+        "./certs/master.key.pem",
         "-CAcreateserial",
         "-days",
         generateDays.toString(),
         "-sha256",
       ],
-      csrText,
+      csrText
     );
     const savePath = `./certs/created/${saveUUID}_pub.pem`;
 
