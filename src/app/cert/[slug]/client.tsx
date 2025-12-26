@@ -28,6 +28,19 @@ export default function Client({ slug }: { slug: string }) {
             <Button>View</Button>
           </Link>
         </div>
+        <div>
+          <h2>Public Key (Full Chain)</h2>
+          <div className="flex flex-row gap-2">
+            <Link
+              href={`/api/certs/get_file/${slug}?type=public_fullchain&get=download`}
+            >
+              <Button>Download</Button>
+            </Link>
+            <Link href={`/api/certs/get_file/${slug}?type=public_fullchain`}>
+              <Button>View</Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

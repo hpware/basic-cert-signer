@@ -95,3 +95,24 @@ export async function generateCertificate(
     throw e;
   }
 }
+
+export async function generateFullchain(uuid: string): Promise<string> {
+  try {
+    const certPath = `./certs/created/${uuid}_pub.pem`;
+    const masterCertPath = "./certs/master.pub.pem";
+
+    // Read both certificates
+    const [cert, masterCert] = await Promise.all([
+      fs.promises.readFile(certPath, "utf8"),
+      fs.promises.readFile(masterCertPath, "utf8"),
+    ]);
+
+    // Create fullchain (certificate + CA certificate)
+    const fullchain = cert + "\n" + masterCert;
+
+    return fullchain;
+  } catch (e) {
+    console.error(`generateFullchain failed: ${e}`);
+    throw e;
+  }
+}
