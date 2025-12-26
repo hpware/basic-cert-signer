@@ -9,18 +9,14 @@ export const GET = async (request: NextRequest) => {
       "./certs/master.pub.pem",
       "utf8",
     );
-    if (get === "download") {
-      return new Response(getText, {
-        headers: {
-          "Content-Type": "application/octet-stream",
-          "Content-Disposition":
-            "attachment; filename=bunCRR_master_pubkey.pem",
-        },
-      });
-    }
     return new Response(getText, {
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type":
+          get === "download" ? "application/octet-stream" : "text/plain",
+        ...(get === "download" && {
+          "Content-Disposition":
+            "attachment; filename=bunCRR_master_pubkey.pem",
+        }),
       },
     });
   } catch (e) {

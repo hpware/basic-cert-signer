@@ -1,8 +1,8 @@
 type: http_request
 model: http_request
-id: rq_3MdwWasYUw
-createdAt: 2025-12-25T16:13:26.398913
-updatedAt: 2025-12-26T12:39:39.317372
+id: rq_RdFudhYHLR
+createdAt: 2025-12-26T12:14:16.463105
+updatedAt: 2025-12-26T12:39:30.156071
 workspaceId: wk_XC848QbnVv
 folderId: fl_e954ihBwCE
 authentication: {}
@@ -12,17 +12,17 @@ body:
   - enabled: true
     id: pKFIJfe9yb
     name: mode
-    value: csr
-  - enabled: true
-    file: /Users/howard/code_base/cert_signer/certs/slave.csr
-    id: nfE66hcErE
-    name: CSR
+    value: generate
   - enabled: true
     id: W7wKWuZFri
     name: Days
     value: '7260'
   - enabled: true
-    id: BkgSuzkbuB
+    id: DZfVrSgXQj
+    name: CN
+    value: test.net
+  - enabled: true
+    id: uWuixtWQdB
     name: ''
     value: ''
 bodyType: multipart/form-data
@@ -33,7 +33,7 @@ headers:
   value: multipart/form-data
   id: MdhGnwnDnK
 method: POST
-name: Request with a CSR file
-sortPriority: 2000.0
+name: Request with just CN
+sortPriority: 0.0
 url: http://localhost:3000/api/certs/generate
 urlParameters: []

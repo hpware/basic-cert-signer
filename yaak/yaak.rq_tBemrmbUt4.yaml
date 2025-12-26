@@ -2,9 +2,9 @@ type: http_request
 model: http_request
 id: rq_tBemrmbUt4
 createdAt: 2025-12-25T15:09:12.154264
-updatedAt: 2025-12-25T15:09:32.890316
+updatedAt: 2025-12-26T12:13:46.163071
 workspaceId: wk_XC848QbnVv
-folderId: null
+folderId: fl_FNdwAbNkDS
 authentication: {}
 authenticationType: null
 body: {}
@@ -12,7 +12,7 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: ''
-sortPriority: -1766674604658.0
-url: http://localhost:3000/api/getTrustedCert
+name: Public Master
+sortPriority: 0.0
+url: http://localhost:3000/api/certs/master
 urlParameters: []

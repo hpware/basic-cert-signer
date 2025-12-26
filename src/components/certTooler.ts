@@ -30,24 +30,30 @@ const spawnWithInput = (
 };
 
 export async function generateCSR(
+  saveUUID: string = crypto.randomUUID(),
   commonName: string,
-  organizationUnit: string = "BunCCR",
-  organization: string = "BunCCR",
-  locality: string = "Da-an District",
-  state: string = "Taipei City",
-  country: string = "TW",
+  organizationUnit: string,
+  organization: string,
+  locality: string,
+  state: string,
+  country: string,
 ) {
   try {
     const { stdout: getPrivateKey } = await execAsync(`openssl genrsa 2048`);
+    const privateKeySavePath = `./certs/created/${saveUUID}_private_key.pem`;
+
+    await fs.promises.mkdir("./certs/created", { recursive: true });
+
+    await fs.promises.writeFile(privateKeySavePath, getPrivateKey);
     const subj = `/CN=${commonName}/OU=${organizationUnit}/O=${organization}/L=${locality}/ST=${state}/C=${country}`;
 
     // Using '-' tells OpenSSL to read the key from stdin
     const csr = await spawnWithInput(
       "openssl",
-      ["req", "-new", "-key", "-", "-subj", subj],
-      getPrivateKey,
+      ["req", "-new", "-key", privateKeySavePath, "-subj", subj],
+      privateKeySavePath,
     );
-    return csr.stdout;
+    return { csr: csr.stdout, privateKey: privateKeySavePath };
   } catch (e) {
     console.error(`generateCSR failed: ${e}`);
     throw e;
@@ -55,11 +61,11 @@ export async function generateCSR(
 }
 
 export async function generateCertificate(
-  csrString: File,
+  csrText: string,
   generateDays: number,
+  saveUUID: string = crypto.randomUUID(),
 ) {
   try {
-    const csrText = await csrString.text();
     const termGenerate = await spawnWithInput(
       "openssl",
       [
@@ -78,7 +84,12 @@ export async function generateCertificate(
       ],
       csrText,
     );
-    return termGenerate.stdout;
+    const savePath = `./certs/created/${saveUUID}_pub.pem`;
+
+    await fs.promises.mkdir("./certs/created", { recursive: true });
+
+    await fs.promises.writeFile(savePath, termGenerate.stdout);
+    return savePath;
   } catch (e) {
     console.error(`generateCertificate failed: ${e}`);
     throw e;
