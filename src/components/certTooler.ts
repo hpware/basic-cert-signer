@@ -29,7 +29,7 @@ const spawnWithInput = (
   });
 };
 
-export async function generateCSR(
+export a function generateCSR(
   saveUUID: string = crypto.randomUUID(),
   commonName: string,
   organizationUnit: string,
@@ -39,7 +39,7 @@ export async function generateCSR(
   country: string
 ) {
   try {
-    const { stdout: getPrivateKey } = await execAsync(`openssl genrsa 2048`);
+    const { stdout: getPrivateKey } = await execA(`openssl genrsa 2048`);
     const privateKeySavePath = `./certs/created/${saveUUID}_private_key.pem`;
 
     await fs.promises.mkdir("./certs/created", { recursive: true });
@@ -75,7 +75,7 @@ export async function generateCertificate(
     const extractedSans = sanMatch ? sanMatch[1].trim() :"";
     const tempSavePath = `/tmp/${crypto.randomUUID()}.cnf`;
     if (extractedSans) {
-      fs.promises.writeFileSync(tempSavePath, `subjectAltName = ${extractedSans}`);
+      fs.promises.writeFile(tempSavePath, `subjectAltName = ${extractedSans}`);
     } else {
       // Fallback: Extract CN and format it as a DNS entry for the SAN field
       const cnMatch = getSAN.match(/Subject:.*?CN\s?=\s?([^\s,+/]+)/);
@@ -113,7 +113,7 @@ export async function generateCertificate(
     console.error(`generateCertificate failed: ${e}`);
     throw e;
   } finally {
-    if (fs.existsSync(extFilePath)) await fs.promise.unlinkSync(extFilePath);
+    if (fs.existsSync(extFilePath)) await fs.promise.unlink(extFilePath);
   }
 }
 
