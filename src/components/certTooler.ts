@@ -72,7 +72,7 @@ export async function generateCertificate(
       csrText
       );
     const sanMatch = getSAN.match(/Subject Alternative Name:.*\n\s*(.*)/);
-    const extractedSans = sanMatch ? sanMatch[1].trim() : :"";
+    const extractedSans = sanMatch ? sanMatch[1].trim() :"";
     const tempSavePath = `/tmp/${crypto.randomUUID()}.cnf`;
     if (extractedSans) {
       fs.promises.writeFileSync(tempSavePath, `subjectAltName = ${extractedSans}`);
