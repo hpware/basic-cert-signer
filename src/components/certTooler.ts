@@ -39,7 +39,7 @@ export async function generateCSR(
   country: string
 ) {
   try {
-    const { stdout: getPrivateKey } = await execA(`openssl genrsa 2048`);
+    const { stdout: getPrivateKey } = await execAsync(`openssl genrsa 2048`);
     const privateKeySavePath = `./certs/created/${saveUUID}_private_key.pem`;
 
     await fs.promises.mkdir("./certs/created", { recursive: true });
