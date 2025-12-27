@@ -66,7 +66,7 @@ export async function generateCertificate(
   saveUUID: string = crypto.randomUUID()
 ) {
   try {
-    const getSAN = await spawnWithInput(
+    const { stdout: getSAN } = await spawnWithInput(
       "openssl",
       ["req", "-noout", "-text", "-in", "-"],
       csrText
