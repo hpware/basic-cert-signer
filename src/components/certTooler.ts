@@ -121,7 +121,7 @@ export async function generateCertificate(
     console.error(`generateCertificate failed: ${e}`);
     throw e;
   } finally {
-    if (fs.existsSync(tempSavePath)) await fs.promise.unlink(tempSavePath);
+    if (fs.existsSync(tempSavePath)) await fs.promise.unlinkSync(tempSavePath);
   }
 }
 
