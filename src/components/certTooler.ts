@@ -72,10 +72,12 @@ export async function generateCertificate(
       csrText
       );
     const sanMatch = getSAN.match(/Subject Alternative Name:.*\n\s*(.*)/);
-    const extractedSans = sanMatch ? sanMatch[1].trim() :"";
-    const tempSavePath = `/tmp/${crypto.randomUUID()}.cnf`;
+    const extractedSans = sanMatch ? sanMatch[1].trim() : "";
+
+    let configContent = "";
+
     if (extractedSans) {
-      fs.promises.writeFile(tempSavePath, `subjectAltName = ${extractedSans}`);
+      configContent = `subjectAltName = ${extractedSans}`;
     } else {
       // Fallback: Extract CN and format it as a DNS entry for the SAN field
       const cnMatch = getSAN.match(/Subject:.*?CN\s?=\s?([^\s,+/]+)/);
@@ -83,6 +85,11 @@ export async function generateCertificate(
       if (extractedCN) {
         configContent = `subjectAltName = DNS:${extractedCN}`;
       }
+    }
+
+    // 2. Write temp config if we have SAN info
+    if (configContent) {
+      await fs.promises.writeFile(tempSavePath, configContent);
     }
     const termGenerate = await spawnWithInput(
       "openssl",
