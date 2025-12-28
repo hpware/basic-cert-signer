@@ -71,33 +71,34 @@ export async function generateCertificate(
       "openssl",
       ["req", "-noout", "-text", "-in", "-"],
       csrText
-      );
+    );
     const sanMatch = getSAN.match(/Subject Alternative Name:.*\n\s*(.*)/);
     const extractedSans = sanMatch ? sanMatch[1].trim() : "";
 
-let configContent = "";
+    let configContent = "";
 
-if (extractedSans) {
-  // If the CSR already has SANs, OpenSSL usually formats them correctly
-  // (e.g., "DNS:domain.com, IP:1.2.3.4"). We can use them as is.
-  configContent = `subjectAltName = ${extractedSans}`;
-} else {
-  // Fallback to Common Name
-  const cnMatch = getSAN.match(/Subject:.*?CN\s?=\s?([^\s,+/]+)/);
-  let extractedCN = cnMatch ? cnMatch[1].trim() : "";
-  
-  // Remove brackets if it's an IPv6 address from the URL/CN
-  extractedCN = extractedCN.replace(/[\[\]]/g, "");
+    if (extractedSans) {
+      // If the CSR already has SANs, OpenSSL usually formats them correctly
+      // (e.g., "DNS:domain.com, IP:1.2.3.4"). We can use them as is.
+      configContent = `[v3_req]\nsubjectAltName = ${extractedSans}`;
+    } else {
+      // Fallback to Common Name
+      const cnMatch = getSAN.match(/Subject:.*?CN\s?=\s?([^\s,+/]+)/);
+      let extractedCN = cnMatch ? cnMatch[1].trim() : "";
 
-  if (extractedCN) {
-    // Check if extractedCN is an IP address
-    const isIP = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(extractedCN) || 
-                 extractedCN.includes(":");
-    
-    const prefix = isIP ? "IP" : "DNS";
-    configContent = `subjectAltName = ${prefix}:${extractedCN}`;
-  }
-}
+      // Remove brackets if it's an IPv6 address from the URL/CN
+      extractedCN = extractedCN.replace(/[\[\]]/g, "");
+
+      if (extractedCN) {
+        // Check if extractedCN is an IP address
+        const isIP =
+          /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(extractedCN) ||
+          extractedCN.includes(":");
+
+        const prefix = isIP ? "IP" : "DNS";
+        configContent = `[v3_req]\nsubjectAltName = ${prefix}:${extractedCN}`;
+      }
+    }
     if (configContent) {
       await fs.promises.writeFile(tempSavePath, configContent);
     }
@@ -116,7 +117,7 @@ if (extractedSans) {
         "-days",
         generateDays.toString(),
         "-sha256",
-        ...(extractedSans ? ["-extfile", tempSavePath] : [])
+        ...(extractedSans ? ["-extfile", tempSavePath] : []),
       ],
       csrText
     );
