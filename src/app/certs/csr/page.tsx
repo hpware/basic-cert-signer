@@ -21,7 +21,7 @@ export default function Page() {
           if (!res.ok) {
             throw new Error(res.error || "Failed to generate certificate");
           }
-          router.push(`/cert/${res.uuidSavePath}`);
+          router.push(`/certs/view/${res.uuidSavePath}`);
         },
         {
           success: "Certificate created successfully!",
@@ -42,7 +42,7 @@ export default function Page() {
         }}
         className="flex flex-col items-center justify-center space-y-1"
       >
-        <Input type="hidden" name="mode" value="generate" />
+        <Input type="hidden" name="mode" value="csr" />
 
         <Label htmlFor="Days">Certificate Validity (Days):</Label>
         <Input
@@ -52,25 +52,8 @@ export default function Page() {
           defaultValue="365"
           required
         />
-
-        <Label htmlFor="CN">CN (Common Name):</Label>
-        <Input type="text" id="CN" name="CN" required />
-
-        <Label htmlFor="OU">OU (Organizational Unit):</Label>
-        <Input type="text" id="OU" name="OU" />
-
-        <Label htmlFor="O">O (Organization Name):</Label>
-        <Input type="text" id="O" name="O" />
-
-        <Label htmlFor="L">L (Locality):</Label>
-        <Input type="text" id="L" name="L" />
-
-        <Label htmlFor="ST">ST (State):</Label>
-        <Input type="text" id="ST" name="ST" />
-
-        <Label htmlFor="C">C (Country):</Label>
-        <Input type="text" id="C" name="C" />
-
+        <Label htmlFor="CSR">CSR (Certificate Signing Request):</Label>
+        <Input type="file" id="CSR" name="CSR" required />
         <Button type="submit" disabled={handleSubmit.isPending}>
           Create
         </Button>
