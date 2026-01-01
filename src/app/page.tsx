@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { BadgeCheck, BracketsIcon, Waypoints } from "lucide-react";
 
 const services = [
@@ -21,6 +20,7 @@ export default function Page() {
       <div className="pb-3 flex flex-col">
         <BracketsIcon className="w-10 h-10" />
         <h1 className="text-2xl font-bold text-left">Core Services</h1>
+        <span>Current Time: {new Date().toLocaleString()}</span>
       </div>
       <div className="grid grid-flow-col auto-cols-fr gap-4 justify-center">
         {services.map((service) => (
