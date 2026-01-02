@@ -9,49 +9,49 @@ authentication: {}
 authenticationType: null
 body:
   form:
-  - enabled: true
-    id: pKFIJfe9yb
-    name: mode
-    value: generate
-  - enabled: true
-    id: W7wKWuZFri
-    name: Days
-    value: '7260'
-  - enabled: true
-    id: DZfVrSgXQj
-    name: CN
-    value: test.net
-  - enabled: true
-    id: jgXpviA6mt
-    name: OU
-    value: Yaak
-  - enabled: true
-    id: wWN6jckmjE
-    name: O
-    value: Yaak
-  - enabled: true
-    id: Sk8ExvDv32
-    name: L
-    value: Sin-yi District
-  - enabled: true
-    id: 9hmN78RnTM
-    name: ST
-    value: Taipei City
-  - enabled: true
-    id: bVxufC48tE
-    name: C
-    value: TW
-  - enabled: true
-    id: fIHtsIVaYG
-    name: ''
-    value: ''
+    - enabled: true
+      id: pKFIJfe9yb
+      name: mode
+      value: generate
+    - enabled: true
+      id: W7wKWuZFri
+      name: Days
+      value: "7260"
+    - enabled: true
+      id: DZfVrSgXQj
+      name: CN
+      value: test.net
+    - enabled: true
+      id: jgXpviA6mt
+      name: OU
+      value: Yaak
+    - enabled: true
+      id: wWN6jckmjE
+      name: O
+      value: Yaak
+    - enabled: true
+      id: Sk8ExvDv32
+      name: L
+      value: Sin-yi District
+    - enabled: true
+      id: 9hmN78RnTM
+      name: ST
+      value: Taipei City
+    - enabled: true
+      id: bVxufC48tE
+      name: C
+      value: TW
+    - enabled: true
+      id: fIHtsIVaYG
+      name: ""
+      value: ""
 bodyType: multipart/form-data
-description: ''
+description: ""
 headers:
-- enabled: true
-  name: Content-Type
-  value: multipart/form-data
-  id: MdhGnwnDnK
+  - enabled: true
+    name: Content-Type
+    value: multipart/form-data
+    id: MdhGnwnDnK
 method: POST
 name: Request with more data
 sortPriority: 1000.0

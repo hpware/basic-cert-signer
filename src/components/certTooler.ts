@@ -6,7 +6,7 @@ const execAsync = promisify(exec);
 const spawnWithInput = (
   cmd: string,
   args: string[],
-  input: string
+  input: string,
 ): Promise<{ stdout: string; stderr: string }> => {
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, args);
@@ -36,7 +36,7 @@ export async function generateCSR(
   organization: string,
   locality: string,
   state: string,
-  country: string
+  country: string,
 ) {
   try {
     const { stdout: getPrivateKey } = await execAsync(`openssl genrsa 2048`);
@@ -51,7 +51,7 @@ export async function generateCSR(
     const csr = await spawnWithInput(
       "openssl",
       ["req", "-new", "-key", privateKeySavePath, "-subj", subj],
-      privateKeySavePath
+      privateKeySavePath,
     );
     return { csr: csr.stdout, privateKey: privateKeySavePath };
   } catch (e) {
@@ -63,14 +63,14 @@ export async function generateCSR(
 export async function generateCertificate(
   csrText: string,
   generateDays: number,
-  saveUUID: string = crypto.randomUUID()
+  saveUUID: string = crypto.randomUUID(),
 ) {
   const tempSavePath = `/tmp/${crypto.randomUUID()}.cnf`;
   try {
     const { stdout: getSAN } = await spawnWithInput(
       "openssl",
       ["req", "-noout", "-text", "-in", "-"],
-      csrText
+      csrText,
     );
     const sanMatch = getSAN.match(/Subject Alternative Name:.*\n\s*(.*)/);
     const extractedSans = sanMatch ? sanMatch[1].trim() : "";
@@ -119,7 +119,7 @@ export async function generateCertificate(
         "-sha256",
         ...(extractedSans ? ["-extfile", tempSavePath] : []),
       ],
-      csrText
+      csrText,
     );
     const savePath = `./certs/created/${saveUUID}_pub.pem`;
 

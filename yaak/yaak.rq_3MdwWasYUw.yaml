@@ -9,29 +9,29 @@ authentication: {}
 authenticationType: null
 body:
   form:
-  - enabled: true
-    id: pKFIJfe9yb
-    name: mode
-    value: csr
-  - enabled: true
-    file: /Users/howard/code_base/cert_signer/certs/slave.csr
-    id: nfE66hcErE
-    name: CSR
-  - enabled: true
-    id: W7wKWuZFri
-    name: Days
-    value: '7260'
-  - enabled: true
-    id: HvQxNhS5fp
-    name: ''
-    value: ''
+    - enabled: true
+      id: pKFIJfe9yb
+      name: mode
+      value: csr
+    - enabled: true
+      file: /Users/howard/code_base/cert_signer/certs/slave.csr
+      id: nfE66hcErE
+      name: CSR
+    - enabled: true
+      id: W7wKWuZFri
+      name: Days
+      value: "7260"
+    - enabled: true
+      id: HvQxNhS5fp
+      name: ""
+      value: ""
 bodyType: multipart/form-data
-description: ''
+description: ""
 headers:
-- enabled: true
-  name: Content-Type
-  value: multipart/form-data
-  id: MdhGnwnDnK
+  - enabled: true
+    name: Content-Type
+    value: multipart/form-data
+    id: MdhGnwnDnK
 method: POST
 name: Request with a CSR file
 sortPriority: 2000.0

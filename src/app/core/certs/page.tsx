@@ -66,7 +66,7 @@ export default function Page() {
         {
           success: "Certificate created successfully!",
           error: "Failed to create certificate",
-        }
+        },
       );
     },
   });
@@ -87,7 +87,7 @@ export default function Page() {
         {
           success: "Certificate created successfully!",
           error: "Failed to create certificate",
-        }
+        },
       );
     },
   });
