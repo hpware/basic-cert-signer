@@ -9,7 +9,7 @@ export const config = {
      * 3. /_static (if you use it)
      * 4. metadata files (favicon.ico, sitemap.xml, etc.)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };
 

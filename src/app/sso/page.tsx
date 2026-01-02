@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightCircleIcon, KeySquare } from "lucide-react";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -8,10 +9,12 @@ export default function Page() {
         <KeySquare className="w-10 h-10" />
         <h1 className="text-2xl font-bold text-left">Single Sign On</h1>
       </div>
-      <Button className="group">
-        Login{" "}
-        <ArrowRightCircleIcon className="w-6 h-6 group-hover:-rotate-10 group-hover:scale-110 transition-all duration-300" />
-      </Button>
+      <Link href="/auth">
+        <Button className="group">
+          Login{" "}
+          <ArrowRightCircleIcon className="w-6 h-6 group-hover:-rotate-10 group-hover:scale-110 transition-all duration-300" />
+        </Button>
+      </Link>
     </div>
   );
 }
