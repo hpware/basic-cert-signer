@@ -18,8 +18,11 @@ export default function middleware(req: NextRequest) {
   const hostname = req.headers.get("host") || "";
 
   // Define your domains
-  const coreTestDomain = "a.dev.yhw.tw";
-  const ssoDomain = "b.dev.yhw.tw";
+  const coreTestDomain = process.env.NEXT_PUBLIC_CORE_URL!.replace(
+    /https?:\/\//,
+    ""
+  );
+  const ssoDomain = process.env.NEXT_PUBLIC_SSO_URL!.replace(/https?:\/\//, "");
 
   // Determine the path prefix based on the hostname
   let targetPath = "";
